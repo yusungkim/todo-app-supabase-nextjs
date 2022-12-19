@@ -1,0 +1,23 @@
+services:
+  web:
+    platform: linux/amd64 # for M1 chip
+    build:
+      context: .
+      dockerfile: ./Dockerfile 
+    image: todo
+    env_file:
+      - .env.local
+    volumes:
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    command: bash -c "yarn && yarn dev"
+    ports:
+      - 3000:3000 # nextjs
+    networks:
+      - todo
+
+networks:
+  todo:
+
+# volumes:
+#   node_modules:
